@@ -131,3 +131,36 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
         console.log("Total employee wage: " + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
         console.log("---------------------------------------");
     }
+    {
+        console.log("UC9a : Total Wage And Total Hours Using Arrow Functions");
+
+        const findTotal = (totalVal, val) => {return totalVal + val;};
+        let totalHours = Array.from(empDailyHrsMap.values()).reduce(findTotal, 0);
+        let totalWage = Array.from(empDailyWageMap.values()).reduce(findTotal, 0);
+        console.log("Total hours: " + totalHours);
+        console.log("Total wages: " + totalWage);
+        console.log("---------------------------------------");
+    }
+
+    // UC9b : Show Full Working Days, Part Working Days And No Working Days
+    {
+        console.log("UC9b : Show Full Working Days, Part Working Days And No Working Days");
+
+        let fullWorkDaysArray = new Array();
+        let partWorkDaysArray = new Array();
+        let noWorkDaysArray = new Array();
+
+        empDailyHrsMap.forEach( (value, key) => {
+            if(value == 8)
+                fullWorkDaysArray.push(key);
+            else if(value == 4)
+                partWorkDaysArray.push(key);
+            else
+                noWorkDaysArray.push(key);
+        });
+
+        console.log("Full time working days: " + fullWorkDaysArray.join(", "));
+        console.log("Part time working days: " + partWorkDaysArray.join(", "));
+        console.log("No time working days: " + noWorkDaysArray.join(", "));
+        console.log("---------------------------------------");
+    }
