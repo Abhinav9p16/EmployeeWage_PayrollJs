@@ -164,3 +164,7 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
         console.log("No time working days: " + noWorkDaysArray.join(", "));
         console.log("---------------------------------------");
     }
+    {
+        console.log("UC10 : Display Employee Object Array Containing Day, Daily Hours And Daily Wage");
+        console.log(empObjectArray.toString());
+    }
