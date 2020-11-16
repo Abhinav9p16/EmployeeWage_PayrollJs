@@ -54,6 +54,25 @@ class EmployeePayrollData {
         else 
         throw "Email should be of the format abc(.xyz)@capgemini.co(.in)";
     }
+    set pin(pin){
+        // Pin should not have special character or alphabet in the beginning
+        let pinFirstCharRegex = RegExp("^[0-9]{1}.*$");
+        if(pinFirstCharRegex.test(pin))
+            this._pin = pin;
+        else throw "Pin should not have special character or alphabet in the beginning";
+        
+        // Pin should not have special character or alphabet in the end
+        let pinLastCharRegex = RegExp("^.*[0-9]{1}$");
+        if(pinLastCharRegex.test(pin))
+            this._pin = pin;
+        else throw "Pin should not have special character or alphabet in the end";
+        
+        // Pin can have 6 digits and spaces
+        let pinIgnoreSpacesRegex = RegExp("^(\\s*[0-9]{1}\\s*){6}$")
+        if(pinIgnoreSpacesRegex.test(pin))
+            this._pin = pin;
+        else throw "Pin can only have 6 digits and spaces";
+    }
 
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric'}
@@ -144,4 +163,33 @@ try{
 }catch(exception){
     console.error(exception);
 }
+// Pin Validation: Should have six characters
+try{
+    employeePayrollData2.pin = "12334";
+}catch(exception){
+    console.error(exception);
+}
+
+// Pin Validation: First Character should not be alphabet or special character
+try{
+    employeePayrollData2.pin = "A2334";
+}catch(exception){
+    console.error(exception);
+}
+
+// Pin Validation: Last Character should not be alphabet or special character
+try{
+    employeePayrollData2.pin = "12334$";
+}catch(exception){
+    console.error(exception);
+}
+
+// Pin Validation: Can have spaces with six digits
+try{
+    employeePayrollData2.pin = "1 23  4 56";
+    process.stdout.write("Pin Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
 
