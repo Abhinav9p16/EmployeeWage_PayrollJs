@@ -45,6 +45,15 @@ class EmployeePayrollData {
         if(startDate <= currentDate) this._startDate = startDate;
         else throw "Start Date is incorrect";
     }
+    set email(email) {
+        // Email should be of the format abc(.xyz)@bridgelabz.co(.in)
+        let emailFormatRegex = RegExp("^[a-zA-Z]+(\\.[a-zA-Z_+-]+){0,1}[@]{1}[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+){0,1}");
+        let emailLastOptionalPartRegex = RegExp(".+\\..{2,}");
+        if(emailFormatRegex.test(email) && emailLastOptionalPartRegex.test(email))
+            this._email = email;
+        else 
+        throw "Email should be of the format abc(.xyz)@capgemini.co(.in)";
+    }
 
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric'}
@@ -91,8 +100,48 @@ try{
 
 // Start Date Validation: Should not be future date
 try{
-    employeePayrollData2.startDate = new Date("2024-6-26");
+    employeePayrollData2.startDate = new Date("2020-11-11");
     process.stdout.write(employeePayrollData2.toString()+"\n");
 }catch(exception){
     console.error(exception);
 }
+// Email Validation: Format should be abc(.xyz)@bridgelabz.co(.in)
+try{
+    employeePayrollData2.email = "abc.xyz@capgemini.co.in";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Format should have '@bridgelabz' mandatoryt part
+try{
+    employeePayrollData2.email = "abc.xyz@co";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Format should have '.co' mandatory part
+try{
+    employeePayrollData2.email = "abc.xyz@capgemini";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Format can have '.xyz' part with _, -, +
+try{
+    employeePayrollData2.email = "abc.x*yz@capgemini";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
+// Email Validation: Last optional part should have two characters
+try{
+    employeePayrollData2.email = "abc@capgemini.co.fg";
+    process.stdout.write("Email Updated\n");
+}catch(exception){
+    console.error(exception);
+}
+
