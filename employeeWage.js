@@ -119,3 +119,15 @@ while(totalEmpHrs < 160 && totalWorkingDays < 20) {
     }
 
     console.log("Total days worked: " + empDailyWageArray.reduce(totalDaysWorked, 0));
+    console.log("---------------------------------------");
+
+    {
+        console.log("UC8: Total Employee Wage From EmpDailyWageMap");
+
+        function totalWages(totalWage, dailyWage) {
+            return totalWage + dailyWage;
+        }
+
+        console.log("Total employee wage: " + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+        console.log("---------------------------------------");
+    }
